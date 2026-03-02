@@ -34,7 +34,7 @@ jobs:
         working-directory: ./demo  
 
       - name: Publicar resultados de pruebas
-        if: always()  # Esto se ejecuta incluso si las pruebas fallan
+        if: always()  
         uses: actions/upload-artifact@v4
         with:
           name: test-results
