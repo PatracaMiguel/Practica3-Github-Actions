@@ -27,4 +27,4 @@ jobs:
         run: javac -d . demo/src/main/java/Matematicas/*.java
 
       - name: Ejecutar pruebas
-        run: java -cp . test.OperacionTest
+        run: java -cp . demo/src/test/java/OperacionTest.java
