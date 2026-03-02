@@ -1,0 +1,30 @@
+name: CI - Calculadora Básica
+
+on:
+  push:
+    branches: [master, feature/* ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v5
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Verificar estructura
+        run: ls -la demo/src/main/java/Matematicas
+
+      - name: Compilar código
+        run: javac -d . demo/src/main/java/Matematicas/*.java
+
+      - name: Ejecutar pruebas
+        run: java -cp . test.OperacionTest
