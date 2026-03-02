@@ -31,7 +31,7 @@ jobs:
 
       - name: Compilar y ejecutar pruebas con Maven
         run: mvn clean test
-
+        working-directory: ./demo  
 
       - name: Publicar resultados de pruebas
         if: always()  # Esto se ejecuta incluso si las pruebas fallan
