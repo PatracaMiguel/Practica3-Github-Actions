@@ -21,10 +21,21 @@ jobs:
           distribution: 'temurin'
 
       - name: Verificar estructura
-        run: ls -la demo/src/main/java/Matematicas
+        run: |
+          echo "=== Estructura del proyecto ==="
+          ls -la
+          echo "=== Código fuente ==="
+          ls -la demo/src/main/java/Matematicas/ || echo "No existe directorio Matematicas"
+          echo "=== Pruebas ==="
+          ls -la demo/src/test/java/ || echo "No existe directorio de pruebas"
 
-      - name: Compilar código
-        run: javac -d . demo/src/main/java/Matematicas/*.java
+      - name: Compilar y ejecutar pruebas con Maven
+        run: mvn clean test
 
-      - name: Ejecutar pruebas
-        run: java -cp . demo/src/test/java/OperacionTest.java
+
+      - name: Publicar resultados de pruebas
+        if: always()  # Esto se ejecuta incluso si las pruebas fallan
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: demo/target/surefire-reports/
